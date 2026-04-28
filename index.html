@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#ebab2b">
+<title>PIX DO MILHÃO · Combo dos Sonhos · 250 chances por R$29,90</title>
+<meta name="description" content="Combo dos Sonhos com 90% de desconto. 250 chances para concorrer a R$ 1 milhão em prêmios. Sorteios lastreados pela VIA Capitalização (SUSEP).">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<link rel="icon" type="image/png" href="assets/logo-pdm-header.png">
+
+<style>
+:root{
+  --yellow:#ebab2b;
+  --yellow-bright:#ffb900;
+  --red:#e30613;
+  --green:#00c003;
+  --green-dark-1:#00b721;
+  --green-dark-2:#008f1a;
+  --orange-1:#ec5b0c;
+  --orange-2:#ffa574;
+  --gray-100:#f4f4f4;
+  --gray-200:#e3e3e3;
+  --gray-400:#9f9f9f;
+  --gray-500:#78716c;
+  --black:#060606;
+  --footer-bg:#212121;
+  --max-w:500px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Ubuntu',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#1a1a1a;
+  color:#000;
+  line-height:1.4;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+img{max-width:100%;display:block}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+a{color:inherit;text-decoration:none}
+
+.shell{
+  max-width:var(--max-w);
+  margin:0 auto;
+  background:#fff;
+  position:relative;
+  min-height:100vh;
+}
+
+/* ============== HEADER ============== */
+.top-header{
+  background:var(--yellow);
+  height:100px;
+  position:sticky;
+  top:0;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 20px;
+}
+.logo-header{height:35px;width:auto}
+.btn-login{
+  background:#000;
+  color:#fff;
+  border-radius:14.88px;
+  height:43px;
+  padding:0 14px;
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-size:13px;
+  font-weight:500;
+  line-height:1.05;
+}
+.btn-login span{display:inline-block}
+.btn-login .icon{width:20px;height:20px;flex-shrink:0}
+
+/* ============== MARQUEE BAR ============== */
+.marquee{
+  background:var(--red);
+  height:33px;
+  overflow:hidden;
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+.marquee-track{
+  display:flex;
+  white-space:nowrap;
+  animation:scroll 22s linear infinite;
+  will-change:transform;
+}
+.marquee-track span{
+  color:#fff;
+  font-size:15.4px;
+  font-weight:500;
+  padding:0 30px;
+  flex-shrink:0;
+}
+@keyframes scroll{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+/* ============== HERO ============== */
+.hero{
+  text-align:center;
+  padding:32px 16px 18px;
+}
+.hero h1{
+  font-size:43.26px;
+  font-weight:700;
+  letter-spacing:-1.73px;
+  color:#000;
+  line-height:1;
+}
+.hero .subtitle{
+  margin-top:14px;
+  font-size:28px;
+  font-weight:700;
+  color:var(--yellow-bright);
+  letter-spacing:-1.12px;
+}
+
+.hero-card{
+  margin:18px 11px 0;
+  height:500px;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+  background:#0a0a0a;
+}
+.hero-card img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* ============== BUY BUTTONS ROW ============== */
+.buy-row{
+  margin:18px 11px 0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.buy-card{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:8px;
+  height:65px;
+  font-weight:700;
+  text-align:center;
+}
+.buy-card .label-tag{
+  position:absolute;
+  top:-11px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--yellow-bright);
+  color:#000;
+  font-size:11.95px;
+  font-weight:700;
+  letter-spacing:-0.48px;
+  padding:4px 10px;
+  border-radius:6px;
+  white-space:nowrap;
+}
+
+.buy-card.outline{
+  background:#fff;
+  border:1.5px solid var(--green);
+  color:var(--green);
+}
+.buy-card.outline .label-tag{
+  background:#fff;
+  border:1.5px solid var(--green);
+  color:#000;
+}
+.buy-card.filled{
+  background:linear-gradient(90deg,var(--green-dark-1),var(--green-dark-2));
+  color:#fff;
+}
+.buy-card-content{
+  display:flex;
+  flex-direction:column;
+  line-height:1.05;
+  font-size:16.36px;
+  letter-spacing:-0.65px;
+}
+.buy-card.outline .buy-card-content{font-size:14.96px;letter-spacing:-0.6px}
+.buy-card-content .price{font-size:0.85em;margin-top:3px}
+
+/* ============== SECONDARY HERO IMG ============== */
+.hero-card-2{
+  margin:22px 11px 0;
+  height:269px;
+  border-radius:20px;
+  overflow:hidden;
+}
+.hero-card-2 img{width:100%;height:100%;object-fit:cover}
+
+.susep-line{
+  text-align:right;
+  font-size:11.22px;
+  color:var(--gray-500);
+  letter-spacing:-0.45px;
+  padding:6px 11px 0;
+  margin-top:6px;
+}
+
+/* ============== STEPPER / QUANTITY SELECTOR ============== */
+.qty-section{
+  margin:24px 14px 0;
+  position:relative;
+}
+.qty-chips{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:9px;
+  position:relative;
+  margin-bottom:6px;
+}
+.qty-chip{
+  background:var(--gray-200);
+  border-radius:4.85px;
+  height:35.85px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:16.73px;
+  font-weight:700;
+  letter-spacing:-0.67px;
+  color:#000;
+  box-shadow:0 3.87px 3.87px rgba(0,0,0,0.07);
+  position:relative;
+  transition:transform .12s ease,background .15s ease;
+}
+.qty-chip:hover{background:#d8d8d8}
+.qty-chip:active{transform:scale(0.97)}
+.popular-tag{
+  position:absolute;
+  top:-9px;
+  left:50%;
+  transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--orange-1),var(--orange-2),var(--orange-1));
+  color:#fff;
+  font-size:9.5px;
+  font-weight:700;
+  letter-spacing:0.2px;
+  padding:3px 10px;
+  border-radius:10px;
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  white-space:nowrap;
+  box-shadow:0 4px 6px rgba(0,0,0,0.12);
+  text-transform:uppercase;
+}
+.popular-tag::before{
+  content:"★";
+  font-size:9px;
+  color:#fff;
+  display:inline-block;
+  line-height:1;
+}
+
+.qty-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:11px;
+  margin-top:11px;
+}
+.qty-input{
+  background:#000;
+  border-radius:5px;
+  height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 12px;
+}
+.qty-btn{
+  width:28px;
+  height:28px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:transparent;
+  color:#fff;
+  font-size:24px;
+  font-weight:300;
+  line-height:1;
+  border-radius:50%;
+  transition:background .15s;
+}
+.qty-btn:hover{background:rgba(255,255,255,0.1)}
+.qty-btn:active{transform:scale(0.92)}
+.qty-value{
+  color:#fff;
+  font-size:27.25px;
+  font-weight:700;
+  letter-spacing:-1.09px;
+  background:transparent;
+  border:none;
+  width:60px;
+  text-align:center;
+  font-family:inherit;
+  -moz-appearance:textfield;
+}
+.qty-value::-webkit-outer-spin-button,
+.qty-value::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+.qty-cta{
+  background:linear-gradient(90deg,var(--green-dark-1),var(--green-dark-2));
+  color:#fff;
+  border-radius:5.47px;
+  height:42px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-size:14.7px;
+  font-weight:700;
+  letter-spacing:-0.59px;
+  line-height:1.05;
+  transition:filter .15s;
+}
+.qty-cta:hover{filter:brightness(1.08)}
+.qty-cta:active{transform:scale(0.98)}
+.qty-cta .price{font-size:14.7px;font-weight:700;margin-top:1px}
+
+/* ============== WINNERS SECTION ============== */
+.winners-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  padding:34px 12px 0;
+  gap:14px;
+}
+.winners-head h2{
+  font-size:32px;
+  font-weight:700;
+  line-height:1.05;
+  color:#000;
+  max-width:240px;
+}
+.winners-head .side{
+  font-size:15px;
+  font-weight:300;
+  color:#000;
+  max-width:144px;
+  line-height:1.15;
+  text-align:left;
+  padding-top:8px;
+}
+.winners-sub{
+  padding:8px 15px 18px;
+  font-size:13px;
+  color:var(--gray-400);
+}
+
+.winners-grid{
+  padding:0 8px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+}
+.winner-card{
+  position:relative;
+  border-radius:11.9px;
+  overflow:hidden;
+  aspect-ratio:160.65 / 238;
+  background:#000;
+}
+.winner-card img.bg{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+.winner-card .play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:47px;
+  height:62px;
+  z-index:2;
+}
+.winner-card .badge-prize{
+  position:absolute;
+  top:-1px;
+  left:50%;
+  transform:translateX(-50%);
+  background:var(--green-dark-2);
+  color:#fff;
+  font-size:12px;
+  font-weight:700;
+  border-radius:3.4px;
+  padding:4px 12px;
+  white-space:nowrap;
+  z-index:3;
+}
+.winner-card .text-bottom{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding:14px 10px;
+  background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.85));
+  color:#fff;
+  z-index:2;
+}
+.winner-card .text-bottom .name{font-size:14px;font-weight:700;line-height:1.1}
+.winner-card .text-bottom .city{font-size:14px;font-weight:300;line-height:1.1;margin-top:2px}
+
+/* ============== FOOTER ============== */
+.footer{
+  background:var(--footer-bg);
+  color:#fff;
+  padding:32px 20px 28px;
+  margin-top:34px;
+}
+.footer-logo{
+  text-align:center;
+  margin-bottom:12px;
+}
+.footer-logo img{
+  width:158px;
+  height:auto;
+  margin:0 auto;
+}
+.social-row{
+  display:flex;
+  justify-content:center;
+  gap:14px;
+  margin:8px 0 22px;
+}
+.social-row a{
+  width:24px;
+  height:24px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:background .15s;
+}
+.social-row a:hover{background:rgba(255,255,255,0.18)}
+.social-row svg{width:13px;height:13px;fill:#fff}
+
+.disclaimer{
+  font-size:12px;
+  font-weight:700;
+  text-align:center;
+  line-height:1.21;
+  padding:0 14px;
+  margin-bottom:24px;
+}
+.partners-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  align-items:center;
+  padding:6px 0 22px;
+}
+.partner-block{text-align:center}
+.partner-block .label{
+  font-size:12px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+.partner-block img{
+  height:26px;
+  width:auto;
+  margin:0 auto;
+  filter:brightness(0) invert(1);
+}
+.partner-block.viacap img{height:29px;filter:none}
+.partner-block.even img{filter:none}
+
+.divider{
+  height:1px;
+  background:rgba(255,255,255,0.45);
+  margin:6px 0 22px;
+}
+.google-seal{
+  text-align:center;
+  margin-bottom:22px;
+}
+.google-seal img{width:125px;margin:0 auto}
+
+.foot-links{
+  text-align:center;
+  font-size:12px;
+  line-height:1.7;
+}
+.foot-links .row{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:18px;
+  margin-bottom:6px;
+}
+.foot-links a:hover{text-decoration:underline}
+.foot-links .info{margin-top:14px;line-height:2}
+.foot-links .info div{font-size:12px}
+
+/* ============== RESPONSIVE OUTSIDE 500 ============== */
+@media (min-width:520px){
+  body{
+    background:
+      radial-gradient(ellipse at top,#2a2a2a 0%,#101010 100%);
+  }
+  .shell{
+    box-shadow:0 30px 80px -20px rgba(0,0,0,0.6),0 0 0 1px rgba(255,255,255,0.04);
+  }
+}
+
+/* ============== ENTRANCE ANIM ============== */
+.fade-in{
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .55s ease-out,transform .55s ease-out;
+}
+.fade-in.visible{opacity:1;transform:translateY(0)}
+
+/* SUSEP info text bottom-right of hero card 2 area */
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- HEADER -->
+  <header class="top-header">
+    <img class="logo-header" src="assets/logo-pdm-header.png" alt="PIX DO MILHÃO">
+    <button class="btn-login" type="button" aria-label="Entrar ou cadastrar">
+      <img class="icon" src="assets/icon-cadastro.png" alt="">
+      <span><span style="display:block">entre ou</span><span style="display:block">cadastre-se</span></span>
+    </button>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee" role="status" aria-live="polite">
+    <div class="marquee-track">
+      <span>COMBO DOS SONHOS COM 90% DE DESCONTO · DISPONÍVEL SOMENTE PELAS PRÓXIMAS <span id="marquee-time">02:00:00</span></span>
+      <span>COMBO DOS SONHOS COM 90% DE DESCONTO · DISPONÍVEL SOMENTE PELAS PRÓXIMAS <span>02:00:00</span></span>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1>COMBO DOS SONHOS</h1>
+    <p class="subtitle">250 chances para 5 prêmios</p>
+  </section>
+
+  <div class="hero-card">
+    <img src="assets/hero-combo.png" alt="Combo dos Sonhos · 1 Milhão de Reais · prêmios de R$100mil, R$300mil, R$300mil, R$40mil + vários prêmios de até R$20mil">
+  </div>
+
+  <!-- BUY ROW -->
+  <div class="buy-row">
+    <button class="buy-card outline" type="button" data-checkout="combo-50">
+      <span class="label-tag">50 Chances</span>
+      <span class="buy-card-content">
+        COMPRAR
+        <span class="price">R$19,90</span>
+      </span>
+    </button>
+    <button class="buy-card filled" type="button" data-checkout="combo-250">
+      <span class="label-tag" style="background:var(--yellow-bright);color:#000;border:none">90% Off</span>
+      <span class="buy-card-content">
+        COMPRAR
+        <span class="price">R$29,90</span>
+      </span>
+      <span class="label-tag" style="top:auto;bottom:-11px;background:var(--yellow-bright);color:#000;border:none">250 Chances</span>
+    </button>
+  </div>
+
+  <!-- HERO CARD 2 -->
+  <div class="hero-card-2">
+    <img src="assets/hero-milhao.png" alt="1 Milhão de Reais em prêmios">
+  </div>
+  <p class="susep-line">Processo SUSEP: 15414.652557/2025-01</p>
+
+  <!-- QTY STEPPER -->
+  <div class="qty-section">
+    <div class="qty-chips">
+      <button class="qty-chip" type="button" data-add="20">+20</button>
+      <button class="qty-chip" type="button" data-add="10">
+        <span class="popular-tag">POPULAR</span>
+        +10
+      </button>
+      <button class="qty-chip" type="button" data-add="50">+50</button>
+    </div>
+    <div class="qty-row">
+      <div class="qty-input">
+        <button class="qty-btn" type="button" data-step="-1" aria-label="Diminuir">−</button>
+        <input class="qty-value" id="qty" type="number" inputmode="numeric" min="1" value="10" aria-label="Quantidade de chances">
+        <button class="qty-btn" type="button" data-step="1" aria-label="Aumentar">+</button>
+      </div>
+      <button class="qty-cta" type="button" data-checkout="custom" id="cta-buy">
+        COMPRAR
+        <span class="price" id="qty-price">R$19,90</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- WINNERS -->
+  <div class="winners-head">
+    <h2>Confira quem<br>mudou de vida</h2>
+    <div class="side">Já são mais de 10 mil ganhadores</div>
+  </div>
+  <p class="winners-sub">Conheça os mais recentes ganhadores</p>
+
+  <div class="winners-grid">
+    <article class="winner-card">
+      <img class="bg" src="assets/winner-1.png" alt="Claudia S. M. ganhou R$ 100 MIL">
+      <span class="badge-prize">Ganhou R$ 100 MIL</span>
+      <img class="play" src="assets/icone-play.png" alt="">
+      <div class="text-bottom">
+        <div class="name">Claudia S. M.</div>
+        <div class="city">Volta redonda/RJ</div>
+      </div>
+    </article>
+    <article class="winner-card">
+      <img class="bg" src="assets/winner-2.png" alt="Claudia S. M. ganhou R$ 40 MIL">
+      <span class="badge-prize">Ganhou R$ 40 MIL</span>
+      <img class="play" src="assets/icone-play.png" alt="">
+      <div class="text-bottom">
+        <div class="name">Claudia S. M.</div>
+        <div class="city">Volta redonda/RJ</div>
+      </div>
+    </article>
+    <article class="winner-card">
+      <img class="bg" src="assets/winner-3.png" alt="Claudia S. M. ganhou R$ 100 MIL">
+      <span class="badge-prize">Ganhou R$ 100 MIL</span>
+      <img class="play" src="assets/icone-play.png" alt="">
+      <div class="text-bottom">
+        <div class="name">Claudia S. M.</div>
+        <div class="city">Volta redonda/RJ</div>
+      </div>
+    </article>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-logo">
+      <img src="assets/logo-pdm-footer.png" alt="PIX DO MILHÃO">
+    </div>
+    <div class="social-row">
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24"><path d="M7 2C4.243 2 2 4.243 2 7v10c0 2.757 2.243 5 5 5h10c2.757 0 5-2.243 5-5V7c0-2.757-2.243-5-5-5H7zm10 2c1.654 0 3 1.346 3 3v10c0 1.654-1.346 3-3 3H7c-1.654 0-3-1.346-3-3V7c0-1.654 1.346-3 3-3h10zm-5 3a5 5 0 100 10 5 5 0 000-10zm0 2a3 3 0 110 6 3 3 0 010-6zm5.5-1a1 1 0 100 2 1 1 0 000-2z"/></svg></a>
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M13 22v-9h3l1-4h-4V6.5c0-1.1.4-2 2-2h2V1h-3c-3.3 0-5 2-5 5v3H6v4h3v9h4z"/></svg></a>
+      <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24"><path d="M19.5 6.5a4.5 4.5 0 01-3.5-1.7v9.7a6 6 0 11-6-6c.34 0 .68.03 1 .1v3.1a3 3 0 102 2.8V2h3a4.5 4.5 0 003.5 4.5v0z"/></svg></a>
+    </div>
+
+    <p class="disclaimer">
+      Sorteios lastreados por Títulos de Capitalização, da Modalidade Incentivo, emitidos pela VIA Capitalização SA, inscritos no CNPJ sob nº 88.076.302/0001-94, e aprovados pela SUSEP através do registro na SUSEP Sorteio nº 115414.675594/2025-89 e 15414.675595/2025-23. O valor das premiações aqui indicadas são líquidos, já descontado o devido imposto de renda de 25%. O registro deste plano na SUSEP não implica, por parte da Autarquia, incentivo ou recomendação a suas negociações.
+    </p>
+
+    <div class="partners-row">
+      <div class="partner-block viacap">
+        <div class="label">Títulos emitidos por:</div>
+        <img src="assets/logo-viacap.png" alt="ViaCap">
+      </div>
+      <div class="partner-block even">
+        <div class="label">Desenvolvimento:</div>
+        <img src="assets/logo-even.png" alt="EVEN">
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="google-seal">
+      <img src="assets/seal-google.png" alt="Google Safe Browsing">
+    </div>
+
+    <div class="foot-links">
+      <div class="row">
+        <a href="#">Termos de Uso</a>
+        <a href="#">Política de Privacidade</a>
+        <a href="#">Perguntas frequentes</a>
+      </div>
+      <div class="row">
+        <a href="#">Jogo Responsável</a>
+        <a href="#">Contato</a>
+        <span>Sac ViaCap · (51) 3303-3851</span>
+      </div>
+      <div class="info">
+        <div>Ouvidoria ViaCap · 0800 874 1505</div>
+        <div>PIX DO MILHÃO · 30.682.309/0001-70</div>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  // ===== Quantity stepper =====
+  const PRICE_PER_CHANCE = 1.99; // R$1,99 per chance (10 chances = R$19,90)
+  const qtyEl = document.getElementById('qty');
+  const priceEl = document.getElementById('qty-price');
+
+  function fmtBRL(n){
+    return 'R$' + n.toFixed(2).replace('.',',');
+  }
+  function clamp(n){
+    if(isNaN(n) || n < 1) return 1;
+    if(n > 9999) return 9999;
+    return Math.floor(n);
+  }
+  function updatePrice(){
+    const q = clamp(parseInt(qtyEl.value,10));
+    qtyEl.value = q;
+    priceEl.textContent = fmtBRL(q * PRICE_PER_CHANCE);
+  }
+
+  document.querySelectorAll('[data-add]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const add = parseInt(btn.dataset.add,10);
+      qtyEl.value = clamp(parseInt(qtyEl.value,10) + add);
+      updatePrice();
+      qtyEl.focus();
+    });
+  });
+  document.querySelectorAll('[data-step]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const step = parseInt(btn.dataset.step,10);
+      qtyEl.value = clamp(parseInt(qtyEl.value,10) + step);
+      updatePrice();
+    });
+  });
+  qtyEl.addEventListener('input',updatePrice);
+  qtyEl.addEventListener('blur',updatePrice);
+  updatePrice();
+
+  // ===== Checkout buttons (placeholder) =====
+  document.querySelectorAll('[data-checkout]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const offer = btn.dataset.checkout;
+      const qty = offer === 'custom' ? qtyEl.value : (offer === 'combo-50' ? 50 : 250);
+      const price = offer === 'custom' ? priceEl.textContent : (offer === 'combo-50' ? 'R$19,90' : 'R$29,90');
+      // TODO: replace with real checkout URL
+      console.log('[checkout]',{offer,qty,price});
+      window.location.href = '#checkout-' + offer;
+    });
+  });
+
+  // ===== Marquee timer =====
+  const marqueeTime = document.getElementById('marquee-time');
+  const TIMER_KEY = 'pdm_offer_end';
+  let endTs = parseInt(localStorage.getItem(TIMER_KEY),10);
+  if(!endTs || endTs < Date.now()){
+    endTs = Date.now() + 2 * 60 * 60 * 1000; // 2h
+    localStorage.setItem(TIMER_KEY,endTs);
+  }
+  function tick(){
+    const diff = Math.max(0,endTs - Date.now());
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    const txt = String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    document.querySelectorAll('#marquee-time, .marquee-track span span').forEach(el=>el.textContent = txt);
+  }
+  tick();
+  setInterval(tick,1000);
+
+  // ===== Fade-in on view =====
+  if('IntersectionObserver' in window){
+    const io = new IntersectionObserver(entries=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    },{threshold:0.12});
+    document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
+  } else {
+    document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible'));
+  }
+})();
+</script>
+</body>
+</html>
