@@ -686,85 +686,165 @@ a{color:inherit;text-decoration:none}
 }
 .lightbox-close:hover{background:rgba(255,255,255,0.3)}
 
-/* ============== ROLETA MODAL ============== */
+/* ============== ROLETA MODAL (1:1 Figma) ============== */
 .roulette-modal{
   position:fixed;
   inset:0;
-  background:radial-gradient(ellipse at center,var(--rou-bg-1) 0%,var(--rou-bg-2) 75%,#000 100%);
+  background:rgba(0,0,0,0.66);
+  backdrop-filter:blur(2.15px);
+  -webkit-backdrop-filter:blur(2.15px);
   z-index:300;
   display:none;
   align-items:center;justify-content:center;
-  padding:20px;
+  padding:14px;
   opacity:0;
   transition:opacity .35s ease;
   overflow:auto;
 }
 .roulette-modal.open{display:flex;opacity:1}
-.roulette-stage{
-  width:100%;
-  max-width:420px;
-  text-align:center;
+
+.roulette-card{
   position:relative;
-  padding:20px 0;
+  width:100%;
+  max-width:478px;
+  background:#fff;
+  border-radius:15px;
+  overflow:visible;
+  transform:scale(0.94);
+  transition:transform .35s cubic-bezier(0.2,0.9,0.3,1.2),height .55s cubic-bezier(0.5,0,0.2,1);
+  display:flex;flex-direction:column;
 }
-.roulette-title{
-  font-size:30px;
-  font-weight:700;
-  color:#fff;
-  letter-spacing:-0.8px;
-  line-height:1;
-  margin-bottom:6px;
+.roulette-modal.open .roulette-card{transform:scale(1)}
+
+.roulette-card-header{
+  height:100px;
+  background:#ebab2b;
+  border-radius:15px 15px 0 0;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  flex-shrink:0;
 }
-.roulette-title span{color:var(--rou-gold)}
-.roulette-subtitle{
-  color:rgba(255,255,255,0.75);
-  font-size:14px;font-weight:400;
-  margin-bottom:24px;
-  line-height:1.4;
+.roulette-card-header .logo{
+  height:50px;
+  width:auto;
+}
+.roulette-close{
+  position:absolute;
+  top:-15px;right:6px;
+  width:35px;height:35px;
+  border-radius:50%;
+  background:#fff;
+  color:#000;font-size:18px;line-height:1;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .15s,background .15s;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+  z-index:3;
+}
+.roulette-close:hover{transform:scale(1.08);background:#f0f0f0}
+.roulette-mute{
+  position:absolute;
+  top:-15px;left:6px;
+  width:35px;height:35px;
+  border-radius:50%;
+  background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 12px rgba(0,0,0,0.25);
+  z-index:3;
+  transition:transform .15s;
+}
+.roulette-mute:hover{transform:scale(1.08)}
+.roulette-mute svg{width:16px;height:16px;fill:#000}
+
+/* views: spin -> result transition inside same card */
+.roulette-views{
+  position:relative;
+  flex:1;
+  min-height:0;
+}
+.roulette-view{
+  width:100%;
+  padding:24px 22px 26px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  transition:opacity .35s ease;
+}
+.roulette-view.hidden{
+  display:none;
 }
 
+/* RED BANNER */
+.roulette-banner{
+  background:#e30613;
+  height:33px;
+  width:calc(100% + 44px);
+  margin:0 -22px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-weight:700;
+  font-size:18px;
+  letter-spacing:0.2px;
+}
+
+.roulette-title-fig{
+  font-size:32px;
+  font-weight:700;
+  color:#000;
+  letter-spacing:-1.6px;
+  line-height:1;
+  margin-bottom:8px;
+}
+.roulette-subtitle-fig{
+  color:#000;
+  font-size:18px;
+  font-weight:300;
+  line-height:1.25;
+  margin-bottom:18px;
+  padding:0 14px;
+}
+
+/* ============== WHEEL ============== */
 .wheel-stage{
   position:relative;
-  width:330px;height:330px;
-  margin:0 auto 30px;
+  width:340px;height:340px;
+  max-width:90vw;
+  max-height:90vw;
+  margin:0 auto 18px;
 }
 .wheel-pointer{
   position:absolute;
-  top:-6px;
+  top:-2px;
   left:50%;
   transform:translateX(-50%);
-  width:0;height:0;
-  border-left:18px solid transparent;
-  border-right:18px solid transparent;
-  border-top:32px solid var(--rou-gold);
-  filter:drop-shadow(0 4px 6px rgba(0,0,0,0.6));
   z-index:5;
-}
-.wheel-pointer::after{
-  content:"";
-  position:absolute;
-  top:-32px;left:-12px;
-  width:24px;height:24px;
-  background:var(--rou-gold);
-  border-radius:50%;
-  border:3px solid #fff;
-  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+  width:38px;
+  height:46px;
+  filter:drop-shadow(0 3px 4px rgba(0,0,0,0.4));
 }
 .wheel-outer{
   position:absolute;inset:0;
   border-radius:50%;
-  background:var(--rou-gold);
-  padding:8px;
+  background:linear-gradient(135deg,#c9981a 0%,#f4c842 50%,#a07210 100%);
+  padding:10px;
   box-shadow:
-    0 0 0 4px #000,
-    0 0 50px rgba(255,215,0,0.3),
-    0 20px 60px rgba(0,0,0,0.7);
+    0 0 0 3px #000,
+    0 18px 40px rgba(0,0,0,0.45);
+}
+.wheel-inner-bg{
+  position:absolute;
+  inset:10px;
+  border-radius:50%;
+  background:#000;
 }
 .wheel{
   width:100%;height:100%;
-  border-radius:50%;
   position:relative;
-  transition:none;
+  display:block;
 }
 .wheel.spinning{
   transition:transform 5.2s cubic-bezier(0.17,0.67,0.16,1.01);
@@ -772,140 +852,81 @@ a{color:inherit;text-decoration:none}
 .wheel-hub{
   position:absolute;
   top:50%;left:50%;
-  width:54px;height:54px;
+  width:88px;height:88px;
   transform:translate(-50%,-50%);
   border-radius:50%;
-  background:radial-gradient(circle at 30% 30%,var(--rou-gold),#b58800);
-  border:4px solid #000;
+  background:#000;
   z-index:4;
-  box-shadow:0 4px 14px rgba(0,0,0,0.5);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 3px #ebab2b,0 4px 14px rgba(0,0,0,0.5);
 }
-.wheel-hub::after{
-  content:"PDM";
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;
-  color:#000;font-size:12px;font-weight:700;letter-spacing:-0.5px;
+.wheel-hub-text{
+  color:#ebab2b;
+  font-weight:700;
+  font-size:11px;
+  line-height:0.95;
+  letter-spacing:-0.5px;
+  text-align:center;
+  font-family:'Ubuntu',sans-serif;
 }
 
+/* ============== SPIN BUTTON ============== */
 .wheel-spin-btn{
-  background:linear-gradient(180deg,#00b721,#008f1a);
+  width:100%;
+  max-width:318px;
+  background:linear-gradient(90deg,#00b721,#008f1a);
   color:#fff;
-  font-size:18px;font-weight:700;letter-spacing:0.5px;
-  padding:16px 50px;
-  border-radius:8px;
-  margin-top:8px;
-  box-shadow:0 6px 18px rgba(0,143,26,0.4),inset 0 1px 0 rgba(255,255,255,0.25);
-  text-transform:uppercase;
+  font-size:20px;font-weight:700;letter-spacing:-0.8px;
+  height:59px;
+  border-radius:5.5px;
+  margin-top:6px;
+  box-shadow:0 4px 14px rgba(0,143,26,0.35),inset 0 1px 0 rgba(255,255,255,0.25);
   transition:transform .12s,filter .12s;
 }
 .wheel-spin-btn:hover{filter:brightness(1.1)}
-.wheel-spin-btn:active{transform:scale(0.97)}
-.wheel-spin-btn:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.6)}
+.wheel-spin-btn:active{transform:scale(0.98)}
+.wheel-spin-btn:disabled{opacity:0.6;cursor:not-allowed;filter:grayscale(0.6)}
 
-.roulette-close{
-  position:absolute;
-  top:16px;right:16px;
-  width:36px;height:36px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.1);
-  color:#fff;font-size:24px;line-height:1;
-  display:flex;align-items:center;justify-content:center;
-  transition:background .15s;
+.roulette-foot-text{
+  font-size:14px;
+  color:#000;
+  font-weight:300;
+  margin-top:14px;
+  line-height:1.3;
+  padding:0 12px;
 }
-.roulette-close:hover{background:rgba(255,255,255,0.2)}
 
-.roulette-mute{
-  position:absolute;
-  top:16px;left:16px;
-  width:36px;height:36px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.1);
-  color:#fff;
-  display:flex;align-items:center;justify-content:center;
+/* ============== RESULT VIEW (mesmo modal) ============== */
+.result-party-icon{
+  width:90px;
+  height:auto;
+  margin:8px 0 18px;
 }
-.roulette-mute svg{width:18px;height:18px;fill:#fff}
+.result-text-fig{
+  font-size:22px;
+  font-weight:300;
+  color:#000;
+  line-height:1.3;
+  margin-bottom:24px;
+  padding:0 8px;
+}
+.result-text-fig strong{
+  font-weight:700;
+}
+.result-text-fig .gold{
+  font-weight:700;
+}
 
-/* ============== RESULTADO MODAL ============== */
-.result-modal{
+/* confetti container (overlay, em cima de tudo) */
+.confetti-host{
   position:fixed;
   inset:0;
-  background:radial-gradient(ellipse at center,#1a0808 0%,#000 90%);
-  z-index:310;
-  display:none;
-  align-items:center;justify-content:center;
-  padding:20px;
-  opacity:0;
-  transition:opacity .35s ease;
+  pointer-events:none;
+  z-index:305;
   overflow:hidden;
 }
-.result-modal.open{display:flex;opacity:1}
-.result-stage{
-  text-align:center;
-  position:relative;
-  z-index:2;
-  max-width:420px;
-  width:100%;
-  transform:scale(0.85);
-  transition:transform .55s cubic-bezier(0.2,0.9,0.3,1.3);
-}
-.result-modal.open .result-stage{transform:scale(1)}
-.result-burst{
-  font-size:14px;font-weight:700;
-  color:var(--rou-gold);
-  letter-spacing:3px;
-  margin-bottom:8px;
-  text-transform:uppercase;
-}
-.result-title{
-  font-size:64px;
-  font-weight:700;
-  color:#fff;
-  line-height:0.95;
-  letter-spacing:-2.5px;
-  margin-bottom:12px;
-  text-shadow:0 0 30px rgba(255,215,0,0.5);
-}
-.result-title .gold{color:var(--rou-gold)}
-.result-prize-card{
-  background:linear-gradient(180deg,rgba(255,215,0,0.15),rgba(255,215,0,0.05));
-  border:1.5px solid rgba(255,215,0,0.3);
-  border-radius:16px;
-  padding:20px 18px;
-  margin:22px 0;
-}
-.result-prize-card .label{
-  font-size:12px;font-weight:700;color:rgba(255,255,255,0.65);
-  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;
-}
-.result-prize-card .prize{
-  font-size:28px;font-weight:700;
-  color:#fff;letter-spacing:-1px;
-  line-height:1.1;
-}
-.result-prize-card .prize .gold{color:var(--rou-gold)}
-.result-cta{
-  width:100%;
-  background:linear-gradient(180deg,#00b721,#008f1a);
-  color:#fff;
-  font-size:17px;font-weight:700;
-  padding:16px;
-  border-radius:8px;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  box-shadow:0 8px 20px rgba(0,143,26,0.45),inset 0 1px 0 rgba(255,255,255,0.3);
-  transition:transform .12s,filter .12s;
-  margin-top:8px;
-}
-.result-cta:hover{filter:brightness(1.1)}
-.result-cta:active{transform:scale(0.97)}
-.result-disclaimer{
-  font-size:11px;
-  color:rgba(255,255,255,0.45);
-  margin-top:14px;
-  line-height:1.4;
-}
-
-/* confetti */
 .confetti-piece{
   position:absolute;
   top:-20px;
@@ -1136,44 +1157,50 @@ a{color:inherit;text-decoration:none}
 
 </div>
 
-<!-- ============== ROLETA MODAL ============== -->
+<!-- ============== ROLETA MODAL (1:1 Figma) ============== -->
 <div class="roulette-modal" id="roulette-modal" role="dialog" aria-modal="true" aria-labelledby="roulette-title">
-  <button class="roulette-close" id="roulette-close" type="button" aria-label="Fechar">×</button>
-  <button class="roulette-mute" id="roulette-mute" type="button" aria-label="Som ligado">
-    <svg viewBox="0 0 24 24" id="mute-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-  </button>
+  <div class="roulette-card">
+    <div class="roulette-card-header">
+      <img class="logo" src="assets/logo-pdm-header.png" alt="PIX DO MILHÃO">
+      <button class="roulette-close" id="roulette-close" type="button" aria-label="Fechar">×</button>
+      <button class="roulette-mute" id="roulette-mute" type="button" aria-label="Som ligado">
+        <svg viewBox="0 0 24 24" id="mute-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+      </button>
+    </div>
 
-  <div class="roulette-stage">
-    <h2 class="roulette-title" id="roulette-title">GIRE A <span>ROLETA</span><br>DA SORTE</h2>
-    <p class="roulette-subtitle">Você ganhou 1 giro grátis · Prêmios reais para resgatar</p>
+    <div class="roulette-views">
+      <!-- VIEW 1: SPIN -->
+      <div class="roulette-view view-spin" id="view-spin">
+        <div class="roulette-banner">VOCÊ RECEBEU UM PRESENTE!</div>
+        <h2 class="roulette-title-fig" id="roulette-title">ROLETA BÔNUS GRATUITA</h2>
+        <p class="roulette-subtitle-fig">Gire a roleta bônus e receba até 90% de desconto para ser o próximo milionário!</p>
 
-    <div class="wheel-stage">
-      <div class="wheel-pointer"></div>
-      <div class="wheel-outer">
-        <svg class="wheel" id="wheel" viewBox="0 0 200 200" aria-hidden="true">
-          <!-- 8 fatias geradas via JS -->
-        </svg>
+        <div class="wheel-stage">
+          <svg class="wheel-pointer" viewBox="0 0 38 46" fill="none" aria-hidden="true">
+            <path d="M19 46 L0 0 L38 0 Z" fill="#ebab2b" stroke="#000" stroke-width="2" stroke-linejoin="round"/>
+          </svg>
+          <div class="wheel-outer">
+            <div class="wheel-inner-bg"></div>
+            <svg class="wheel" id="wheel" viewBox="0 0 200 200" aria-hidden="true"></svg>
+            <div class="wheel-hub">
+              <span class="wheel-hub-text">PIX DO<br>MILHÃO</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="wheel-spin-btn" id="wheel-spin-btn" type="button">CLIQUE PARA GIRAR</button>
+        <p class="roulette-foot-text">A roleta bônus está disponível somente nessa página, aproveite.</p>
       </div>
-      <div class="wheel-hub"></div>
+
+      <!-- VIEW 2: RESULT -->
+      <div class="roulette-view view-result hidden" id="view-result">
+        <img class="result-party-icon" src="assets/roulette-party.svg" alt="">
+        <p class="result-text-fig" id="result-text">Parabéns! Você recebeu <strong class="gold" id="result-prize-pct">90% de desconto</strong> e acesso ao <strong>COMBO DOS SONHOS.</strong></p>
+        <button class="wheel-spin-btn" id="result-cta" type="button">RESGATAR BÔNUS</button>
+      </div>
     </div>
-
-    <button class="wheel-spin-btn" id="wheel-spin-btn" type="button">Gire agora</button>
   </div>
-</div>
-
-<!-- ============== RESULTADO MODAL ============== -->
-<div class="result-modal" id="result-modal" role="dialog" aria-modal="true" aria-labelledby="result-title">
   <div class="confetti-host" id="confetti-host" aria-hidden="true"></div>
-  <div class="result-stage">
-    <div class="result-burst">★ PARABÉNS ★</div>
-    <h2 class="result-title" id="result-title">VOCÊ <span class="gold">GANHOU!</span></h2>
-    <div class="result-prize-card">
-      <div class="label">Seu prêmio</div>
-      <div class="prize"><span class="gold" id="result-prize-text">+50 chances grátis</span><br>no Combo dos Sonhos</div>
-    </div>
-    <button class="result-cta" id="result-cta" type="button">RESGATAR AGORA</button>
-    <p class="result-disclaimer">Prêmio aplicado automaticamente na sua próxima compra</p>
-  </div>
 </div>
 
 <!-- ============== LIGHTBOX YOUTUBE ============== -->
@@ -1200,17 +1227,20 @@ a{color:inherit;text-decoration:none}
     { yt: 'YOUTUBE_ID_8', name: 'Rodrigo T.',     city: 'Curitiba/PR',      prize: 'R$ 100 MIL', img: 'assets/winner-2.png' },
   ];
 
+  // 8 fatias alternando preto/amarelo (1:1 Figma)
+  // Fatias amarelas: NÃO FOI / 20% / 50% / NÃO FOI
+  // Fatias pretas:   90% / 50% / 90% / 20%
   const ROULETTE_PRIZES = [
-    { label: '+10 chances', color: '#ff1111', txt: '#fff', prize: '+10 chances grátis' },
-    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
-    { label: '+50 chances', color: '#ff1111', txt: '#fff', prize: '+50 chances grátis' },
-    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
-    { label: 'R$ 10 OFF',  color: '#ff1111', txt: '#fff', prize: 'R$ 10 de desconto' },
-    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
-    { label: '+100 chances', color: '#ff1111', txt: '#fff', prize: '+100 chances grátis' },
-    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
+    { line1:'NÃO FOI',          line2:'DESTA VEZ',    color:'#ebab2b', txt:'#4d4d4d', prize:null },
+    { line1:'50%',               line2:'DE DESCONTO',  color:'#000',    txt:'#ebab2b', prize:'50% de desconto' },
+    { line1:'20%',               line2:'DE DESCONTO',  color:'#ebab2b', txt:'#000',    prize:'20% de desconto' },
+    { line1:'90%',               line2:'DE DESCONTO',  color:'#000',    txt:'#ebab2b', prize:'90% de desconto' },
+    { line1:'NÃO FOI',          line2:'DESTA VEZ',    color:'#ebab2b', txt:'#4d4d4d', prize:null },
+    { line1:'50%',               line2:'DE DESCONTO',  color:'#000',    txt:'#ebab2b', prize:'50% de desconto' },
+    { line1:'20%',               line2:'DE DESCONTO',  color:'#ebab2b', txt:'#000',    prize:'20% de desconto' },
+    { line1:'90%',               line2:'DE DESCONTO',  color:'#000',    txt:'#ebab2b', prize:'90% de desconto' },
   ];
-  const WIN_INDEX = 2; // sempre cai no "+50 chances" (indices ímpares são "tente novamente")
+  const WIN_INDEX = 3; // sempre cai em "90% de desconto" (preto, índice 3)
   const ROULETTE_AUTO_DELAY = 1000; // 1s após load
 
   // ===== Quantity stepper =====
@@ -1383,11 +1413,18 @@ a{color:inherit;text-decoration:none}
       const p1 = pol(start), p2 = pol(end);
       const large = SLICE_DEG > 180 ? 1 : 0;
       const path = `M${cx},${cy} L${p1.x},${p1.y} A${r},${r} 0 ${large} 1 ${p2.x},${p2.y} Z`;
-      html += `<path d="${path}" fill="${ROULETTE_PRIZES[i].color}" stroke="#000" stroke-width="0.6"/>`;
-      // texto centrado na fatia
+      const slice = ROULETTE_PRIZES[i];
+      html += `<path d="${path}" fill="${slice.color}" stroke="#ebab2b" stroke-width="0.4"/>`;
+      // textos centrados na fatia, rotacionados pra ficarem alinhados radialmente
       const mid = start + SLICE_DEG/2;
-      const tp = (() => { const a = (mid - 90) * Math.PI / 180; return { x: cx + (r*0.62) * Math.cos(a), y: cy + (r*0.62) * Math.sin(a) }; })();
-      html += `<text x="${tp.x}" y="${tp.y}" fill="${ROULETTE_PRIZES[i].txt}" font-size="7.2" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid} ${tp.x} ${tp.y})" style="font-family:Ubuntu,sans-serif">${ROULETTE_PRIZES[i].label}</text>`;
+      // line1 (grande) — mais perto da borda
+      const a1 = (mid - 90) * Math.PI / 180;
+      const tp1 = { x: cx + (r*0.66) * Math.cos(a1), y: cy + (r*0.66) * Math.sin(a1) };
+      const fontSize1 = slice.line1.includes('NÃO') ? 9 : 14;
+      html += `<text x="${tp1.x}" y="${tp1.y}" fill="${slice.txt}" font-size="${fontSize1}" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid} ${tp1.x} ${tp1.y})" style="font-family:Ubuntu,sans-serif;letter-spacing:-0.3px">${slice.line1}</text>`;
+      // line2 (pequeno) — abaixo do line1, mais perto do hub
+      const tp2 = { x: cx + (r*0.46) * Math.cos(a1), y: cy + (r*0.46) * Math.sin(a1) };
+      html += `<text x="${tp2.x}" y="${tp2.y}" fill="${slice.txt}" font-size="4.2" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid} ${tp2.x} ${tp2.y})" style="font-family:Ubuntu,sans-serif">${slice.line2}</text>`;
     }
     wheelSvg.innerHTML = html;
   }
@@ -1506,46 +1543,47 @@ a{color:inherit;text-decoration:none}
   spinBtn.addEventListener('click',spin);
 
   // =================================================================
-  // RESULTADO MODAL
+  // RESULTADO (mesmo modal — transição de view)
   // =================================================================
-  const resultModal = document.getElementById('result-modal');
   const rouletteModal = document.getElementById('roulette-modal');
+  const viewSpin = document.getElementById('view-spin');
+  const viewResult = document.getElementById('view-result');
   const confettiHost = document.getElementById('confetti-host');
 
   function makeConfetti(){
     confettiHost.innerHTML = '';
-    const colors = ['#ffd700','#ff1111','#a6ff00','#fff','#ebab2b','#00b721'];
-    for(let i=0;i<80;i++){
+    const colors = ['#ffd700','#ebab2b','#000','#fff','#00b721','#e30613'];
+    for(let i=0;i<70;i++){
       const p = document.createElement('div');
       p.className = 'confetti-piece';
       p.style.left = Math.random()*100 + '%';
       p.style.background = colors[Math.floor(Math.random()*colors.length)];
       p.style.animationDuration = (3 + Math.random()*2.5) + 's';
-      p.style.animationDelay = (Math.random()*2) + 's';
+      p.style.animationDelay = (Math.random()*1.5) + 's';
       p.style.transform = `rotate(${Math.random()*360}deg)`;
       confettiHost.appendChild(p);
     }
+    setTimeout(()=>{ confettiHost.innerHTML = ''; }, 6500);
   }
 
   function showResult(){
-    const prize = ROULETTE_PRIZES[WIN_INDEX].prize || 'Prêmio especial';
-    const txt = document.getElementById('result-prize-text');
-    if(txt) txt.textContent = prize;
-    rouletteModal.classList.remove('open');
-    setTimeout(()=>{
-      makeConfetti();
-      resultModal.classList.add('open');
-    },300);
+    const slice = ROULETTE_PRIZES[WIN_INDEX];
+    const prizeText = slice.prize || 'um presente especial';
+    const pctEl = document.getElementById('result-prize-pct');
+    if(pctEl) pctEl.textContent = prizeText;
+    // troca view dentro do mesmo card (mantém modal aberto)
+    viewSpin.classList.add('hidden');
+    viewResult.classList.remove('hidden');
+    makeConfetti();
   }
 
   document.getElementById('result-cta').addEventListener('click',()=>{
-    resultModal.classList.remove('open');
+    rouletteModal.classList.remove('open');
     document.body.style.overflow = '';
-    // scroll pra oferta na LP
     setTimeout(()=>{
       const target = document.querySelector('.qty-section') || document.querySelector('.buy-row');
       if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
-    }, 350);
+    }, 400);
   });
 
   // close roulette modal manualmente
