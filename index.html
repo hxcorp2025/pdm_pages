@@ -165,9 +165,11 @@ a{color:inherit;text-decoration:none}
   align-items:center;
   justify-content:center;
   border-radius:8px;
-  height:65px;
+  height:78px;
   font-weight:700;
   text-align:center;
+  padding-top:6px;
+  padding-bottom:14px;
 }
 .buy-card .label-tag{
   position:absolute;
@@ -942,65 +944,152 @@ a{color:inherit;text-decoration:none}
   100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
 }
 
+/* ============== CONVERSION COPY & PULSE ============== */
+.unit-price{
+  position:absolute;
+  bottom:6px;
+  left:50%;
+  transform:translateX(-50%);
+  font-size:10px;
+  font-weight:700;
+  color:rgba(0,0,0,0.55);
+  white-space:nowrap;
+  letter-spacing:0.1px;
+}
+.buy-card.outline .unit-price{color:rgba(0,0,0,0.55)}
+.buy-card.filled .unit-price{color:rgba(255,255,255,0.85)}
+.unit-price-best{
+  color:#fff !important;
+  font-weight:700;
+}
+.tag-best{
+  background:linear-gradient(90deg,#ffd700,#ffb900,#ffd700) !important;
+  background-size:200% 100% !important;
+  border:none !important;
+  color:#000 !important;
+  font-weight:700;
+  letter-spacing:0.3px;
+  animation:shimmer 2.4s linear infinite;
+}
+@keyframes shimmer{
+  0%{background-position:0% 50%}
+  100%{background-position:200% 50%}
+}
+.has-pulse{
+  position:relative;
+  animation:cardPulse 2.6s ease-in-out infinite;
+}
+@keyframes cardPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,143,26,0.45)}
+  50%{box-shadow:0 0 0 8px rgba(0,143,26,0)}
+}
+
+.qty-chip-desktop{display:none}
+
 /* ============== DESKTOP LAYOUT (≥1024px) ============== */
 @media (min-width:1024px){
-  :root{--max-w:1180px}
+  :root{--max-w:1280px}
   .shell{
     background:#fff;
     box-shadow:0 30px 100px -20px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.04);
   }
   .top-header{
     padding:0 56px;
-    height:90px;
+    height:96px;
   }
-  .logo-header{height:42px}
-  .btn-login{height:46px;font-size:14px;padding:0 18px}
+  .logo-header{height:46px}
+  .btn-login{height:50px;font-size:14px;padding:0 20px}
   .marquee-track span{font-size:16px;padding:0 40px}
 
   .desktop-grid{
     display:grid;
-    grid-template-columns:1.1fr 1fr;
-    gap:32px;
-    padding:36px 40px 12px;
+    grid-template-columns:1.55fr 1fr;
+    gap:36px;
+    padding:36px 40px 16px;
     align-items:start;
   }
-  .desktop-grid .hero{padding:0;text-align:left}
-  .desktop-grid .hero h1{font-size:64px;letter-spacing:-2.6px;line-height:1}
-  .desktop-grid .hero .subtitle{font-size:34px;margin-top:10px;letter-spacing:-1.4px}
-  .desktop-grid .hero-card{margin:24px 0 0}
-  .desktop-grid .right-col{
-    padding-top:14px;
-    display:flex;flex-direction:column;gap:20px;
+  /* coluna esquerda */
+  .desktop-grid .left-col{
+    display:flex;flex-direction:column;
   }
-  .desktop-grid .buy-row{margin:0;grid-template-columns:1fr 1fr;gap:16px}
-  .desktop-grid .buy-card{height:88px}
-  .desktop-grid .buy-card-content{font-size:20px}
-  .desktop-grid .hero-card-2{margin:0}
-  .desktop-grid .susep-line{padding:0;text-align:right;margin-top:8px}
-  .desktop-grid .qty-section{margin:0}
-  .desktop-grid .qty-row .qty-input{height:54px}
-  .desktop-grid .qty-cta{height:54px;font-size:17px}
+  .desktop-grid .hero{padding:0;text-align:left;order:-1;margin-bottom:18px}
+  .desktop-grid .hero h1{font-size:62px;letter-spacing:-2.5px;line-height:0.95}
+  .desktop-grid .hero .subtitle{font-size:32px;margin-top:8px;letter-spacing:-1.2px}
+  .desktop-grid .hero-card{margin:0;aspect-ratio:1300/800;width:100%}
+  .desktop-grid .hero-card picture{display:block;width:100%;height:100%}
+  .desktop-grid .hero-card picture img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* coluna direita */
+  .desktop-grid .right-col{
+    padding-top:0;
+    display:flex;flex-direction:column;gap:18px;
+  }
+  .desktop-grid .buy-row{
+    margin:0;
+    grid-template-columns:1fr 1.15fr;
+    gap:14px;
+  }
+  .desktop-grid .buy-card{
+    height:96px;
+    border-radius:10px;
+  }
+  .desktop-grid .buy-card.outline{border-width:2px}
+  .desktop-grid .buy-card-content{font-size:24px;font-weight:700}
+  .desktop-grid .buy-card .price{font-size:0.78em}
+  .desktop-grid .buy-card .label-tag{font-size:13px;padding:5px 14px}
+  .desktop-grid .buy-card .unit-price{font-size:11px;bottom:6px}
+
+  .desktop-grid .hero-card-2{margin:0;height:auto;aspect-ratio:556/313}
+  .desktop-grid .susep-line{padding:0;text-align:right;margin-top:6px;font-size:11px}
+
+  .desktop-grid .qty-section{margin:6px 0 0}
+  .desktop-grid .qty-chips{
+    grid-template-columns:repeat(3,1fr);
+    gap:11px;
+    margin-bottom:11px;
+  }
+  .desktop-grid .qty-chip{height:50px;font-size:22px}
+  .desktop-grid .qty-chip-desktop{display:flex}
+  .desktop-grid .qty-row{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+  }
+  .desktop-grid .qty-row .qty-input{height:58px;width:100%}
+  .desktop-grid .qty-cta{height:58px;font-size:20px;width:100%}
   .desktop-grid .qty-value{font-size:32px}
 
-  .winners-head{padding:60px 40px 0}
-  .winners-head h2{font-size:42px;max-width:none;flex:1}
-  .winners-head .side{font-size:17px;max-width:200px;padding-top:12px}
-  .winners-sub{padding:8px 40px 22px;font-size:14px}
-  .video-carousel{padding:0 40px 14px;gap:14px}
-  .video-card{flex:0 0 230px}
+  /* winners section */
+  .winners-head{padding:50px 40px 0;align-items:center}
+  .winners-head h2{font-size:54px;max-width:none;flex:1;letter-spacing:-2px}
+  .winners-head .side{font-size:18px;max-width:240px;padding-top:0;text-align:right}
+  .winners-sub{padding:10px 40px 22px;font-size:15px}
+  .video-carousel{padding:0 40px 14px;gap:16px;scroll-snap-type:x proximity}
+  .video-card{flex:0 0 calc((100% - 80px) / 6 - 14px);min-width:200px}
   .carousel-arrows{display:block}
+  .carousel-arrows.left{left:8px}
+  .carousel-arrows.right{right:8px}
 
-  .footer{padding:48px 60px 36px}
-  .disclaimer{padding:0 80px;font-size:13px}
-  .partners-row{max-width:520px;margin:0 auto;gap:60px}
+  /* footer */
+  .footer{padding:54px 80px 40px}
+  .footer-logo img{width:200px}
+  .disclaimer{padding:0 80px;font-size:14px;line-height:1.5}
+  .partners-row{max-width:640px;margin:0 auto;gap:80px;padding:14px 0 28px}
+  .partner-block .label{font-size:14px}
+  .partner-block img{height:32px}
+  .partner-block.viacap img{height:36px}
+  .partner-block.even img{height:30px}
+  .google-seal img{width:160px}
   .foot-links{font-size:13px}
+  .foot-links .row{gap:24px;margin-bottom:8px}
+  .foot-links .info{margin-top:18px}
 
-  /* roleta maior em desktop */
-  .roulette-stage{max-width:520px}
-  .wheel-stage{width:420px;height:420px}
-  .roulette-title{font-size:42px}
-  .result-stage{max-width:520px}
-  .result-title{font-size:88px}
+  /* roleta no desktop */
+  .roulette-card{max-width:520px}
+  .wheel-stage{width:380px;height:380px}
+  .roulette-title-fig{font-size:36px}
+  .roulette-subtitle-fig{font-size:20px}
+  .result-text-fig{font-size:24px}
 }
 
 /* SUSEP info text bottom-right of hero card 2 area */
@@ -1036,7 +1125,10 @@ a{color:inherit;text-decoration:none}
       </section>
 
       <div class="hero-card">
-        <img src="assets/hero-combo.png" alt="Combo dos Sonhos · 1 Milhão de Reais · prêmios de R$100mil, R$300mil, R$300mil, R$40mil + vários prêmios de até R$20mil">
+        <picture>
+          <source media="(min-width:1024px)" srcset="assets/hero-combo-desktop.png">
+          <img src="assets/hero-combo.png" alt="Combo dos Sonhos · 1 Milhão de Reais · prêmios de R$100mil, R$300mil, R$300mil, R$40mil + vários prêmios de até R$20mil">
+        </picture>
       </div>
     </div>
     <div class="right-col">
@@ -1049,14 +1141,16 @@ a{color:inherit;text-decoration:none}
         COMPRAR
         <span class="price">R$19,90</span>
       </span>
+      <span class="unit-price">R$ 0,40 / chance</span>
     </button>
-    <button class="buy-card filled" type="button" data-checkout="combo-250">
-      <span class="label-tag" style="background:var(--yellow-bright);color:#000;border:none">90% Off</span>
+    <button class="buy-card filled has-pulse" type="button" data-checkout="combo-250">
+      <span class="label-tag tag-best">★ MAIS ESCOLHIDO</span>
       <span class="buy-card-content">
         COMPRAR
         <span class="price">R$29,90</span>
       </span>
-      <span class="label-tag" style="top:auto;bottom:-11px;background:var(--yellow-bright);color:#000;border:none">250 Chances</span>
+      <span class="unit-price unit-price-best">R$ 0,12 / chance · Economize R$70</span>
+      <span class="label-tag" style="top:auto;bottom:-11px;background:var(--yellow-bright);color:#000;border:none">250 Chances · 90% Off</span>
     </button>
   </div>
 
@@ -1069,12 +1163,15 @@ a{color:inherit;text-decoration:none}
   <!-- QTY STEPPER -->
   <div class="qty-section">
     <div class="qty-chips">
-      <button class="qty-chip" type="button" data-add="20">+20</button>
       <button class="qty-chip" type="button" data-add="10">
         <span class="popular-tag">POPULAR</span>
         +10
       </button>
+      <button class="qty-chip" type="button" data-add="20">+20</button>
       <button class="qty-chip" type="button" data-add="50">+50</button>
+      <button class="qty-chip qty-chip-desktop" type="button" data-add="100">+100</button>
+      <button class="qty-chip qty-chip-desktop" type="button" data-add="150">+150</button>
+      <button class="qty-chip qty-chip-desktop" type="button" data-add="250">+250</button>
     </div>
     <div class="qty-row">
       <div class="qty-input">
