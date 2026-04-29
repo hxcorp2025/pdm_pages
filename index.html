@@ -30,6 +30,12 @@
   --black:#060606;
   --footer-bg:#212121;
   --max-w:500px;
+  /* roleta tokens (do JSON oficial pixdomilhao.com.br) */
+  --rou-primary:#ff1111;
+  --rou-secondary:#a6ff00;
+  --rou-gold:#ffd700;
+  --rou-bg-1:#1a0808;
+  --rou-bg-2:#0a0303;
 }
 
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -538,6 +544,444 @@ a{color:inherit;text-decoration:none}
 }
 .fade-in.visible{opacity:1;transform:translateY(0)}
 
+/* ============== YOUTUBE CAROUSEL ============== */
+.video-carousel-wrap{
+  margin-top:6px;
+  position:relative;
+}
+.video-carousel{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  scroll-snap-type:x mandatory;
+  scroll-behavior:smooth;
+  padding:0 12px 8px;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.video-carousel::-webkit-scrollbar{display:none}
+.video-card{
+  position:relative;
+  flex:0 0 160px;
+  aspect-ratio:160 / 238;
+  border-radius:11.9px;
+  overflow:hidden;
+  scroll-snap-align:start;
+  background:#000;
+  cursor:pointer;
+  transition:transform .2s ease;
+}
+.video-card:hover{transform:translateY(-3px) scale(1.015)}
+.video-card .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.video-card .yt-thumb{
+  position:absolute;
+  inset:0;
+  background-size:cover;
+  background-position:center;
+  filter:brightness(0.85);
+}
+.video-card .play-btn{
+  position:absolute;
+  top:50%;left:50%;
+  width:54px;height:54px;
+  transform:translate(-50%,-50%);
+  background:rgba(255,17,17,0.95);
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(255,17,17,0.4);
+  z-index:2;
+  transition:transform .15s,background .15s;
+}
+.video-card:hover .play-btn{transform:translate(-50%,-50%) scale(1.08);background:#ff1111}
+.video-card .play-btn::after{
+  content:"";
+  width:0;height:0;
+  border-left:14px solid #fff;
+  border-top:9px solid transparent;
+  border-bottom:9px solid transparent;
+  margin-left:3px;
+}
+.video-card .badge-prize{
+  position:absolute;
+  top:8px;left:50%;
+  transform:translateX(-50%);
+  background:var(--green-dark-2);
+  color:#fff;font-size:11px;font-weight:700;
+  border-radius:3.4px;padding:4px 10px;
+  white-space:nowrap;z-index:3;
+}
+.video-card .text-bottom{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:14px 10px;
+  background:linear-gradient(to bottom,rgba(0,0,0,0),rgba(0,0,0,0.92));
+  color:#fff;z-index:2;
+}
+.video-card .text-bottom .name{font-size:14px;font-weight:700;line-height:1.1}
+.video-card .text-bottom .city{font-size:13px;font-weight:300;line-height:1.1;margin-top:2px;opacity:0.85}
+
+.carousel-arrows{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  display:none;
+  pointer-events:none;
+}
+.carousel-arrows.left{left:0}
+.carousel-arrows.right{right:0}
+.carousel-arrows button{
+  width:36px;height:36px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.95);
+  display:flex;align-items:center;justify-content:center;
+  pointer-events:auto;
+  box-shadow:0 4px 14px rgba(0,0,0,0.3);
+  transition:transform .15s;
+}
+.carousel-arrows button:hover{transform:scale(1.08)}
+.carousel-arrows button::after{
+  content:"";width:0;height:0;
+  border-top:6px solid transparent;
+  border-bottom:6px solid transparent;
+}
+.carousel-arrows.left button::after{border-right:8px solid #000}
+.carousel-arrows.right button::after{border-left:8px solid #000}
+
+/* ============== LIGHTBOX YOUTUBE ============== */
+.lightbox{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.92);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  z-index:200;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity .25s ease;
+}
+.lightbox.open{display:flex;opacity:1}
+.lightbox-frame{
+  position:relative;
+  width:100%;
+  max-width:880px;
+  aspect-ratio:16 / 9;
+  background:#000;
+  border-radius:12px;
+  overflow:hidden;
+  transform:scale(0.94);
+  transition:transform .3s cubic-bezier(0.2,0.9,0.3,1.2);
+}
+.lightbox.open .lightbox-frame{transform:scale(1)}
+.lightbox-frame iframe{width:100%;height:100%;border:0;display:block}
+.lightbox-close{
+  position:absolute;
+  top:-40px;right:-4px;
+  width:32px;height:32px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  color:#fff;font-size:22px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.lightbox-close:hover{background:rgba(255,255,255,0.3)}
+
+/* ============== ROLETA MODAL ============== */
+.roulette-modal{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(ellipse at center,var(--rou-bg-1) 0%,var(--rou-bg-2) 75%,#000 100%);
+  z-index:300;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity .35s ease;
+  overflow:auto;
+}
+.roulette-modal.open{display:flex;opacity:1}
+.roulette-stage{
+  width:100%;
+  max-width:420px;
+  text-align:center;
+  position:relative;
+  padding:20px 0;
+}
+.roulette-title{
+  font-size:30px;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:-0.8px;
+  line-height:1;
+  margin-bottom:6px;
+}
+.roulette-title span{color:var(--rou-gold)}
+.roulette-subtitle{
+  color:rgba(255,255,255,0.75);
+  font-size:14px;font-weight:400;
+  margin-bottom:24px;
+  line-height:1.4;
+}
+
+.wheel-stage{
+  position:relative;
+  width:330px;height:330px;
+  margin:0 auto 30px;
+}
+.wheel-pointer{
+  position:absolute;
+  top:-6px;
+  left:50%;
+  transform:translateX(-50%);
+  width:0;height:0;
+  border-left:18px solid transparent;
+  border-right:18px solid transparent;
+  border-top:32px solid var(--rou-gold);
+  filter:drop-shadow(0 4px 6px rgba(0,0,0,0.6));
+  z-index:5;
+}
+.wheel-pointer::after{
+  content:"";
+  position:absolute;
+  top:-32px;left:-12px;
+  width:24px;height:24px;
+  background:var(--rou-gold);
+  border-radius:50%;
+  border:3px solid #fff;
+  box-shadow:0 2px 8px rgba(0,0,0,0.5);
+}
+.wheel-outer{
+  position:absolute;inset:0;
+  border-radius:50%;
+  background:var(--rou-gold);
+  padding:8px;
+  box-shadow:
+    0 0 0 4px #000,
+    0 0 50px rgba(255,215,0,0.3),
+    0 20px 60px rgba(0,0,0,0.7);
+}
+.wheel{
+  width:100%;height:100%;
+  border-radius:50%;
+  position:relative;
+  transition:none;
+}
+.wheel.spinning{
+  transition:transform 5.2s cubic-bezier(0.17,0.67,0.16,1.01);
+}
+.wheel-hub{
+  position:absolute;
+  top:50%;left:50%;
+  width:54px;height:54px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 30%,var(--rou-gold),#b58800);
+  border:4px solid #000;
+  z-index:4;
+  box-shadow:0 4px 14px rgba(0,0,0,0.5);
+}
+.wheel-hub::after{
+  content:"PDM";
+  position:absolute;inset:0;
+  display:flex;align-items:center;justify-content:center;
+  color:#000;font-size:12px;font-weight:700;letter-spacing:-0.5px;
+}
+
+.wheel-spin-btn{
+  background:linear-gradient(180deg,#00b721,#008f1a);
+  color:#fff;
+  font-size:18px;font-weight:700;letter-spacing:0.5px;
+  padding:16px 50px;
+  border-radius:8px;
+  margin-top:8px;
+  box-shadow:0 6px 18px rgba(0,143,26,0.4),inset 0 1px 0 rgba(255,255,255,0.25);
+  text-transform:uppercase;
+  transition:transform .12s,filter .12s;
+}
+.wheel-spin-btn:hover{filter:brightness(1.1)}
+.wheel-spin-btn:active{transform:scale(0.97)}
+.wheel-spin-btn:disabled{opacity:0.5;cursor:not-allowed;filter:grayscale(0.6)}
+
+.roulette-close{
+  position:absolute;
+  top:16px;right:16px;
+  width:36px;height:36px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  color:#fff;font-size:24px;line-height:1;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s;
+}
+.roulette-close:hover{background:rgba(255,255,255,0.2)}
+
+.roulette-mute{
+  position:absolute;
+  top:16px;left:16px;
+  width:36px;height:36px;
+  border-radius:50%;
+  background:rgba(255,255,255,0.1);
+  color:#fff;
+  display:flex;align-items:center;justify-content:center;
+}
+.roulette-mute svg{width:18px;height:18px;fill:#fff}
+
+/* ============== RESULTADO MODAL ============== */
+.result-modal{
+  position:fixed;
+  inset:0;
+  background:radial-gradient(ellipse at center,#1a0808 0%,#000 90%);
+  z-index:310;
+  display:none;
+  align-items:center;justify-content:center;
+  padding:20px;
+  opacity:0;
+  transition:opacity .35s ease;
+  overflow:hidden;
+}
+.result-modal.open{display:flex;opacity:1}
+.result-stage{
+  text-align:center;
+  position:relative;
+  z-index:2;
+  max-width:420px;
+  width:100%;
+  transform:scale(0.85);
+  transition:transform .55s cubic-bezier(0.2,0.9,0.3,1.3);
+}
+.result-modal.open .result-stage{transform:scale(1)}
+.result-burst{
+  font-size:14px;font-weight:700;
+  color:var(--rou-gold);
+  letter-spacing:3px;
+  margin-bottom:8px;
+  text-transform:uppercase;
+}
+.result-title{
+  font-size:64px;
+  font-weight:700;
+  color:#fff;
+  line-height:0.95;
+  letter-spacing:-2.5px;
+  margin-bottom:12px;
+  text-shadow:0 0 30px rgba(255,215,0,0.5);
+}
+.result-title .gold{color:var(--rou-gold)}
+.result-prize-card{
+  background:linear-gradient(180deg,rgba(255,215,0,0.15),rgba(255,215,0,0.05));
+  border:1.5px solid rgba(255,215,0,0.3);
+  border-radius:16px;
+  padding:20px 18px;
+  margin:22px 0;
+}
+.result-prize-card .label{
+  font-size:12px;font-weight:700;color:rgba(255,255,255,0.65);
+  letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;
+}
+.result-prize-card .prize{
+  font-size:28px;font-weight:700;
+  color:#fff;letter-spacing:-1px;
+  line-height:1.1;
+}
+.result-prize-card .prize .gold{color:var(--rou-gold)}
+.result-cta{
+  width:100%;
+  background:linear-gradient(180deg,#00b721,#008f1a);
+  color:#fff;
+  font-size:17px;font-weight:700;
+  padding:16px;
+  border-radius:8px;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  box-shadow:0 8px 20px rgba(0,143,26,0.45),inset 0 1px 0 rgba(255,255,255,0.3);
+  transition:transform .12s,filter .12s;
+  margin-top:8px;
+}
+.result-cta:hover{filter:brightness(1.1)}
+.result-cta:active{transform:scale(0.97)}
+.result-disclaimer{
+  font-size:11px;
+  color:rgba(255,255,255,0.45);
+  margin-top:14px;
+  line-height:1.4;
+}
+
+/* confetti */
+.confetti-piece{
+  position:absolute;
+  top:-20px;
+  width:8px;height:14px;
+  opacity:0;
+  border-radius:1px;
+  pointer-events:none;
+  animation:confetti-fall linear infinite;
+}
+@keyframes confetti-fall{
+  0%{opacity:0;transform:translateY(-20px) rotate(0deg)}
+  10%{opacity:1}
+  100%{opacity:0;transform:translateY(110vh) rotate(720deg)}
+}
+
+/* ============== DESKTOP LAYOUT (≥1024px) ============== */
+@media (min-width:1024px){
+  :root{--max-w:1180px}
+  .shell{
+    background:#fff;
+    box-shadow:0 30px 100px -20px rgba(0,0,0,0.7),0 0 0 1px rgba(255,255,255,0.04);
+  }
+  .top-header{
+    padding:0 56px;
+    height:90px;
+  }
+  .logo-header{height:42px}
+  .btn-login{height:46px;font-size:14px;padding:0 18px}
+  .marquee-track span{font-size:16px;padding:0 40px}
+
+  .desktop-grid{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:32px;
+    padding:36px 40px 12px;
+    align-items:start;
+  }
+  .desktop-grid .hero{padding:0;text-align:left}
+  .desktop-grid .hero h1{font-size:64px;letter-spacing:-2.6px;line-height:1}
+  .desktop-grid .hero .subtitle{font-size:34px;margin-top:10px;letter-spacing:-1.4px}
+  .desktop-grid .hero-card{margin:24px 0 0}
+  .desktop-grid .right-col{
+    padding-top:14px;
+    display:flex;flex-direction:column;gap:20px;
+  }
+  .desktop-grid .buy-row{margin:0;grid-template-columns:1fr 1fr;gap:16px}
+  .desktop-grid .buy-card{height:88px}
+  .desktop-grid .buy-card-content{font-size:20px}
+  .desktop-grid .hero-card-2{margin:0}
+  .desktop-grid .susep-line{padding:0;text-align:right;margin-top:8px}
+  .desktop-grid .qty-section{margin:0}
+  .desktop-grid .qty-row .qty-input{height:54px}
+  .desktop-grid .qty-cta{height:54px;font-size:17px}
+  .desktop-grid .qty-value{font-size:32px}
+
+  .winners-head{padding:60px 40px 0}
+  .winners-head h2{font-size:42px;max-width:none;flex:1}
+  .winners-head .side{font-size:17px;max-width:200px;padding-top:12px}
+  .winners-sub{padding:8px 40px 22px;font-size:14px}
+  .video-carousel{padding:0 40px 14px;gap:14px}
+  .video-card{flex:0 0 230px}
+  .carousel-arrows{display:block}
+
+  .footer{padding:48px 60px 36px}
+  .disclaimer{padding:0 80px;font-size:13px}
+  .partners-row{max-width:520px;margin:0 auto;gap:60px}
+  .foot-links{font-size:13px}
+
+  /* roleta maior em desktop */
+  .roulette-stage{max-width:520px}
+  .wheel-stage{width:420px;height:420px}
+  .roulette-title{font-size:42px}
+  .result-stage{max-width:520px}
+  .result-title{font-size:88px}
+}
+
 /* SUSEP info text bottom-right of hero card 2 area */
 </style>
 </head>
@@ -562,15 +1006,19 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <h1>COMBO DOS SONHOS</h1>
-    <p class="subtitle">250 chances para 5 prêmios</p>
-  </section>
+  <div class="desktop-grid">
+    <div class="left-col">
+      <!-- HERO -->
+      <section class="hero">
+        <h1>COMBO DOS SONHOS</h1>
+        <p class="subtitle">250 chances para 5 prêmios</p>
+      </section>
 
-  <div class="hero-card">
-    <img src="assets/hero-combo.png" alt="Combo dos Sonhos · 1 Milhão de Reais · prêmios de R$100mil, R$300mil, R$300mil, R$40mil + vários prêmios de até R$20mil">
-  </div>
+      <div class="hero-card">
+        <img src="assets/hero-combo.png" alt="Combo dos Sonhos · 1 Milhão de Reais · prêmios de R$100mil, R$300mil, R$300mil, R$40mil + vários prêmios de até R$20mil">
+      </div>
+    </div>
+    <div class="right-col">
 
   <!-- BUY ROW -->
   <div class="buy-row">
@@ -620,41 +1068,20 @@ a{color:inherit;text-decoration:none}
     </div>
   </div>
 
-  <!-- WINNERS -->
+    </div><!-- /right-col -->
+  </div><!-- /desktop-grid -->
+
+  <!-- WINNERS / VIDEO CAROUSEL -->
   <div class="winners-head">
     <h2>Confira quem<br>mudou de vida</h2>
     <div class="side">Já são mais de 10 mil ganhadores</div>
   </div>
   <p class="winners-sub">Conheça os mais recentes ganhadores</p>
 
-  <div class="winners-grid">
-    <article class="winner-card">
-      <img class="bg" src="assets/winner-1.png" alt="Claudia S. M. ganhou R$ 100 MIL">
-      <span class="badge-prize">Ganhou R$ 100 MIL</span>
-      <img class="play" src="assets/icone-play.png" alt="">
-      <div class="text-bottom">
-        <div class="name">Claudia S. M.</div>
-        <div class="city">Volta redonda/RJ</div>
-      </div>
-    </article>
-    <article class="winner-card">
-      <img class="bg" src="assets/winner-2.png" alt="Claudia S. M. ganhou R$ 40 MIL">
-      <span class="badge-prize">Ganhou R$ 40 MIL</span>
-      <img class="play" src="assets/icone-play.png" alt="">
-      <div class="text-bottom">
-        <div class="name">Claudia S. M.</div>
-        <div class="city">Volta redonda/RJ</div>
-      </div>
-    </article>
-    <article class="winner-card">
-      <img class="bg" src="assets/winner-3.png" alt="Claudia S. M. ganhou R$ 100 MIL">
-      <span class="badge-prize">Ganhou R$ 100 MIL</span>
-      <img class="play" src="assets/icone-play.png" alt="">
-      <div class="text-bottom">
-        <div class="name">Claudia S. M.</div>
-        <div class="city">Volta redonda/RJ</div>
-      </div>
-    </article>
+  <div class="video-carousel-wrap">
+    <div class="carousel-arrows left"><button type="button" data-scroll="prev" aria-label="Anterior"></button></div>
+    <div class="video-carousel" id="video-carousel" role="region" aria-label="Vídeos dos ganhadores"></div>
+    <div class="carousel-arrows right"><button type="button" data-scroll="next" aria-label="Próximo"></button></div>
   </div>
 
   <!-- FOOTER -->
@@ -709,8 +1136,83 @@ a{color:inherit;text-decoration:none}
 
 </div>
 
+<!-- ============== ROLETA MODAL ============== -->
+<div class="roulette-modal" id="roulette-modal" role="dialog" aria-modal="true" aria-labelledby="roulette-title">
+  <button class="roulette-close" id="roulette-close" type="button" aria-label="Fechar">×</button>
+  <button class="roulette-mute" id="roulette-mute" type="button" aria-label="Som ligado">
+    <svg viewBox="0 0 24 24" id="mute-icon"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+  </button>
+
+  <div class="roulette-stage">
+    <h2 class="roulette-title" id="roulette-title">GIRE A <span>ROLETA</span><br>DA SORTE</h2>
+    <p class="roulette-subtitle">Você ganhou 1 giro grátis · Prêmios reais para resgatar</p>
+
+    <div class="wheel-stage">
+      <div class="wheel-pointer"></div>
+      <div class="wheel-outer">
+        <svg class="wheel" id="wheel" viewBox="0 0 200 200" aria-hidden="true">
+          <!-- 8 fatias geradas via JS -->
+        </svg>
+      </div>
+      <div class="wheel-hub"></div>
+    </div>
+
+    <button class="wheel-spin-btn" id="wheel-spin-btn" type="button">Gire agora</button>
+  </div>
+</div>
+
+<!-- ============== RESULTADO MODAL ============== -->
+<div class="result-modal" id="result-modal" role="dialog" aria-modal="true" aria-labelledby="result-title">
+  <div class="confetti-host" id="confetti-host" aria-hidden="true"></div>
+  <div class="result-stage">
+    <div class="result-burst">★ PARABÉNS ★</div>
+    <h2 class="result-title" id="result-title">VOCÊ <span class="gold">GANHOU!</span></h2>
+    <div class="result-prize-card">
+      <div class="label">Seu prêmio</div>
+      <div class="prize"><span class="gold" id="result-prize-text">+50 chances grátis</span><br>no Combo dos Sonhos</div>
+    </div>
+    <button class="result-cta" id="result-cta" type="button">RESGATAR AGORA</button>
+    <p class="result-disclaimer">Prêmio aplicado automaticamente na sua próxima compra</p>
+  </div>
+</div>
+
+<!-- ============== LIGHTBOX YOUTUBE ============== -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Player de vídeo">
+  <div class="lightbox-frame">
+    <button class="lightbox-close" id="lightbox-close" type="button" aria-label="Fechar">×</button>
+    <iframe id="lightbox-iframe" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+  </div>
+</div>
+
 <script>
 (function(){
+  // =================================================================
+  // CONFIG: trocar IDs do YouTube quando tiver os vídeos reais
+  // =================================================================
+  const WINNER_VIDEOS = [
+    { yt: 'YOUTUBE_ID_1', name: 'Claudia S. M.',  city: 'Volta Redonda/RJ', prize: 'R$ 100 MIL', img: 'assets/winner-1.png' },
+    { yt: 'YOUTUBE_ID_2', name: 'Marcelo R.',     city: 'São Paulo/SP',     prize: 'R$ 40 MIL',  img: 'assets/winner-2.png' },
+    { yt: 'YOUTUBE_ID_3', name: 'Yara A.',        city: 'Maceió/AL',        prize: 'R$ 100 MIL', img: 'assets/winner-3.png' },
+    { yt: 'YOUTUBE_ID_4', name: 'Roseli S.',      city: 'Recife/PE',        prize: 'R$ 50 MIL',  img: 'assets/winner-1.png' },
+    { yt: 'YOUTUBE_ID_5', name: 'Alexander L.',   city: 'Cuiabá/MT',        prize: 'R$ 100 MIL', img: 'assets/winner-2.png' },
+    { yt: 'YOUTUBE_ID_6', name: 'Elisabete M.',   city: 'Campinas/SP',      prize: 'R$ 200 MIL', img: 'assets/winner-3.png' },
+    { yt: 'YOUTUBE_ID_7', name: 'Maria F.',       city: 'João Pessoa/PB',   prize: 'R$ 80 MIL',  img: 'assets/winner-1.png' },
+    { yt: 'YOUTUBE_ID_8', name: 'Rodrigo T.',     city: 'Curitiba/PR',      prize: 'R$ 100 MIL', img: 'assets/winner-2.png' },
+  ];
+
+  const ROULETTE_PRIZES = [
+    { label: '+10 chances', color: '#ff1111', txt: '#fff', prize: '+10 chances grátis' },
+    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
+    { label: '+50 chances', color: '#ff1111', txt: '#fff', prize: '+50 chances grátis' },
+    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
+    { label: 'R$ 10 OFF',  color: '#ff1111', txt: '#fff', prize: 'R$ 10 de desconto' },
+    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
+    { label: '+100 chances', color: '#ff1111', txt: '#fff', prize: '+100 chances grátis' },
+    { label: 'Tente novamente', color: '#ffd700', txt: '#000', prize: null },
+  ];
+  const WIN_INDEX = 2; // sempre cai no "+50 chances" (indices ímpares são "tente novamente")
+  const ROULETTE_AUTO_DELAY = 1000; // 1s após load
+
   // ===== Quantity stepper =====
   const PRICE_PER_CHANCE = 1.99; // R$1,99 per chance (10 chances = R$19,90)
   const qtyEl = document.getElementById('qty');
@@ -793,6 +1295,283 @@ a{color:inherit;text-decoration:none}
     document.querySelectorAll('.fade-in').forEach(el=>io.observe(el));
   } else {
     document.querySelectorAll('.fade-in').forEach(el=>el.classList.add('visible'));
+  }
+
+  // =================================================================
+  // VIDEO CAROUSEL
+  // =================================================================
+  const carousel = document.getElementById('video-carousel');
+  function ytThumb(id){
+    return id.startsWith('YOUTUBE_') ? null : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+  }
+  WINNER_VIDEOS.forEach((w,i)=>{
+    const card = document.createElement('article');
+    card.className = 'video-card';
+    card.dataset.yt = w.yt;
+    const thumb = ytThumb(w.yt);
+    const bgEl = thumb
+      ? `<div class="yt-thumb" style="background-image:url('${thumb}')"></div>`
+      : `<img class="bg" src="${w.img}" alt="${w.name} ganhou ${w.prize}">`;
+    card.innerHTML = `
+      ${bgEl}
+      <span class="badge-prize">Ganhou ${w.prize}</span>
+      <span class="play-btn" aria-hidden="true"></span>
+      <div class="text-bottom">
+        <div class="name">${w.name}</div>
+        <div class="city">${w.city}</div>
+      </div>
+    `;
+    card.addEventListener('click',()=>openLightbox(w.yt));
+    carousel.appendChild(card);
+  });
+
+  // arrows (desktop)
+  document.querySelectorAll('[data-scroll]').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const dir = btn.dataset.scroll === 'next' ? 1 : -1;
+      const amount = carousel.clientWidth * 0.7;
+      carousel.scrollBy({left: dir * amount, behavior: 'smooth'});
+    });
+  });
+
+  // =================================================================
+  // YOUTUBE LIGHTBOX
+  // =================================================================
+  const lightbox = document.getElementById('lightbox');
+  const ytIframe = document.getElementById('lightbox-iframe');
+  function openLightbox(ytId){
+    if(!ytId || ytId.startsWith('YOUTUBE_')){
+      // placeholder — avisa o owner sem quebrar UX
+      console.warn('[lightbox] vídeo placeholder, troque o ID em WINNER_VIDEOS');
+      return;
+    }
+    ytIframe.src = `https://www.youtube-nocookie.com/embed/${ytId}?autoplay=1&rel=0&modestbranding=1`;
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(){
+    lightbox.classList.remove('open');
+    ytIframe.src = '';
+    if(!document.querySelector('.roulette-modal.open, .result-modal.open')){
+      document.body.style.overflow = '';
+    }
+  }
+  document.getElementById('lightbox-close').addEventListener('click',closeLightbox);
+  lightbox.addEventListener('click',(e)=>{ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown',(e)=>{
+    if(e.key === 'Escape'){
+      if(lightbox.classList.contains('open')) closeLightbox();
+    }
+  });
+
+  // =================================================================
+  // ROLETA — SVG + spin físico + som via Web Audio
+  // =================================================================
+  const wheelSvg = document.getElementById('wheel');
+  const SLICE_COUNT = ROULETTE_PRIZES.length;
+  const SLICE_DEG = 360 / SLICE_COUNT;
+  const cx = 100, cy = 100, r = 96;
+  function pol(angle){
+    const a = (angle - 90) * Math.PI / 180;
+    return { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) };
+  }
+  function buildWheel(){
+    let html = '';
+    for(let i=0;i<SLICE_COUNT;i++){
+      const start = i * SLICE_DEG;
+      const end = start + SLICE_DEG;
+      const p1 = pol(start), p2 = pol(end);
+      const large = SLICE_DEG > 180 ? 1 : 0;
+      const path = `M${cx},${cy} L${p1.x},${p1.y} A${r},${r} 0 ${large} 1 ${p2.x},${p2.y} Z`;
+      html += `<path d="${path}" fill="${ROULETTE_PRIZES[i].color}" stroke="#000" stroke-width="0.6"/>`;
+      // texto centrado na fatia
+      const mid = start + SLICE_DEG/2;
+      const tp = (() => { const a = (mid - 90) * Math.PI / 180; return { x: cx + (r*0.62) * Math.cos(a), y: cy + (r*0.62) * Math.sin(a) }; })();
+      html += `<text x="${tp.x}" y="${tp.y}" fill="${ROULETTE_PRIZES[i].txt}" font-size="7.2" font-weight="700" text-anchor="middle" dominant-baseline="middle" transform="rotate(${mid} ${tp.x} ${tp.y})" style="font-family:Ubuntu,sans-serif">${ROULETTE_PRIZES[i].label}</text>`;
+    }
+    wheelSvg.innerHTML = html;
+  }
+  buildWheel();
+
+  // som: tick (Web Audio API)
+  let audioCtx = null;
+  let muted = false;
+  function ensureAudio(){
+    if(!audioCtx){
+      try { audioCtx = new (window.AudioContext || window.webkitAudioContext)(); }
+      catch(e){ audioCtx = null; }
+    }
+    if(audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+  }
+  function tickSound(volume){
+    if(muted || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    const o = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(900, t);
+    o.frequency.exponentialRampToValueAtTime(400, t + 0.04);
+    g.gain.setValueAtTime(0.0001, t);
+    g.gain.exponentialRampToValueAtTime(volume * 0.25, t + 0.005);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + 0.06);
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(t); o.stop(t + 0.07);
+  }
+  function winSound(){
+    if(muted || !audioCtx) return;
+    const t = audioCtx.currentTime;
+    const notes = [523.25, 659.25, 783.99, 1046.50]; // C E G C
+    notes.forEach((f,i)=>{
+      const o = audioCtx.createOscillator();
+      const g = audioCtx.createGain();
+      o.type = 'triangle';
+      o.frequency.setValueAtTime(f, t + i*0.12);
+      g.gain.setValueAtTime(0.0001, t + i*0.12);
+      g.gain.exponentialRampToValueAtTime(0.18, t + i*0.12 + 0.02);
+      g.gain.exponentialRampToValueAtTime(0.0001, t + i*0.12 + 0.4);
+      o.connect(g); g.connect(audioCtx.destination);
+      o.start(t + i*0.12); o.stop(t + i*0.12 + 0.45);
+    });
+  }
+
+  // mute toggle
+  const muteBtn = document.getElementById('roulette-mute');
+  const muteIcon = document.getElementById('mute-icon');
+  muteBtn.addEventListener('click',()=>{
+    muted = !muted;
+    muteBtn.setAttribute('aria-label', muted ? 'Som desligado' : 'Som ligado');
+    muteIcon.innerHTML = muted
+      ? '<path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51A8.796 8.796 0 0021 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 003.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>'
+      : '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>';
+  });
+
+  // spin logic
+  const wheel = document.getElementById('wheel');
+  const spinBtn = document.getElementById('wheel-spin-btn');
+  let spinning = false;
+  let currentRotation = 0;
+  let tickInterval = null;
+
+  function spin(){
+    if(spinning) return;
+    spinning = true;
+    spinBtn.disabled = true;
+    ensureAudio();
+
+    // ângulo da fatia premiada (centro): pointer aponta pro topo (ângulo 0)
+    // o SVG roda no sentido horário; ponteiro fica no topo
+    // pra a fatia WIN_INDEX parar sob o ponteiro, rotação final = -(WIN_INDEX*SLICE_DEG + SLICE_DEG/2)
+    const targetSliceCenter = WIN_INDEX * SLICE_DEG + SLICE_DEG / 2;
+    const fullSpins = 6; // dá uns 6 giros completos
+    const finalAngle = (fullSpins * 360) - targetSliceCenter;
+
+    // pequeno jitter pra não ficar perfeitamente no centro
+    const jitter = (Math.random() - 0.5) * (SLICE_DEG * 0.4);
+    const total = finalAngle + jitter;
+
+    currentRotation = total;
+    wheel.classList.add('spinning');
+    wheel.style.transform = `rotate(${total}deg)`;
+
+    // ticks: dispara a cada cruzamento de fatia, com cadência decrescente
+    let lastTickAtAngle = 0;
+    const startTime = performance.now();
+    const duration = 5200;
+    function tickLoop(now){
+      if(!spinning) return;
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      // easing: aproxima do final, ticks ficam mais raros
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const currentAngle = total * eased;
+      const sliceCrossings = Math.floor(currentAngle / SLICE_DEG);
+      if(sliceCrossings > lastTickAtAngle){
+        const remaining = 1 - progress;
+        // volume diminui no fim, mas mantém audível
+        tickSound(0.5 + remaining * 0.5);
+        lastTickAtAngle = sliceCrossings;
+      }
+      if(progress < 1) requestAnimationFrame(tickLoop);
+    }
+    requestAnimationFrame(tickLoop);
+
+    // ao final, espera 800ms e abre o resultado
+    setTimeout(()=>{
+      winSound();
+      setTimeout(()=>{
+        showResult();
+      }, 900);
+    }, 5300);
+  }
+  spinBtn.addEventListener('click',spin);
+
+  // =================================================================
+  // RESULTADO MODAL
+  // =================================================================
+  const resultModal = document.getElementById('result-modal');
+  const rouletteModal = document.getElementById('roulette-modal');
+  const confettiHost = document.getElementById('confetti-host');
+
+  function makeConfetti(){
+    confettiHost.innerHTML = '';
+    const colors = ['#ffd700','#ff1111','#a6ff00','#fff','#ebab2b','#00b721'];
+    for(let i=0;i<80;i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-piece';
+      p.style.left = Math.random()*100 + '%';
+      p.style.background = colors[Math.floor(Math.random()*colors.length)];
+      p.style.animationDuration = (3 + Math.random()*2.5) + 's';
+      p.style.animationDelay = (Math.random()*2) + 's';
+      p.style.transform = `rotate(${Math.random()*360}deg)`;
+      confettiHost.appendChild(p);
+    }
+  }
+
+  function showResult(){
+    const prize = ROULETTE_PRIZES[WIN_INDEX].prize || 'Prêmio especial';
+    const txt = document.getElementById('result-prize-text');
+    if(txt) txt.textContent = prize;
+    rouletteModal.classList.remove('open');
+    setTimeout(()=>{
+      makeConfetti();
+      resultModal.classList.add('open');
+    },300);
+  }
+
+  document.getElementById('result-cta').addEventListener('click',()=>{
+    resultModal.classList.remove('open');
+    document.body.style.overflow = '';
+    // scroll pra oferta na LP
+    setTimeout(()=>{
+      const target = document.querySelector('.qty-section') || document.querySelector('.buy-row');
+      if(target) target.scrollIntoView({behavior:'smooth',block:'center'});
+    }, 350);
+  });
+
+  // close roulette modal manualmente
+  document.getElementById('roulette-close').addEventListener('click',()=>{
+    rouletteModal.classList.remove('open');
+    document.body.style.overflow = '';
+    if(spinning){
+      spinning = false;
+      spinBtn.disabled = false;
+    }
+  });
+
+  // ===== auto-trigger 1s after load =====
+  function openRoulette(){
+    rouletteModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    // tenta criar audio ctx (gesture-gated; alguns browsers vão segurar até clique)
+    ensureAudio();
+  }
+  // se ja foi mostrada nesta sessão, não mostra de novo
+  const SHOW_KEY = 'pdm_roulette_seen';
+  if(!sessionStorage.getItem(SHOW_KEY)){
+    setTimeout(()=>{
+      sessionStorage.setItem(SHOW_KEY, '1');
+      openRoulette();
+    }, ROULETTE_AUTO_DELAY);
   }
 })();
 </script>
